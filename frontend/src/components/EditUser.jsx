@@ -9,9 +9,16 @@ const EditUser = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const getUserById = async (id) => {
+    const response = await axios.get(`http://localhost:5000/users/${id}`);
+    setName(response.data.name);
+    setEmail(response.data.email);
+    setGender(response.data.gender);
+  };
+
   useEffect(() => {
     getUserById(id);
-  },[]);
+  }, [id]);
 
   const updateUser = async (e) => {
     e.preventDefault();
@@ -25,13 +32,6 @@ const EditUser = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getUserById = async (id) => {
-    const response = await axios.get(`http://localhost:5000/users/${id}`);
-    setName(response.data.name);
-    setEmail(response.data.email);
-    setGender(response.data.gender);
   };
 
   return (
